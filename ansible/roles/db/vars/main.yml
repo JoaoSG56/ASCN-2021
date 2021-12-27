@@ -1,0 +1,7 @@
+# db_packages:
+#   - postgresql
+#   - postgresql-server
+#   - python3-mysqldb
+# password: "{{ lookup('file', 'hashed_password') }}"
+# services:
+#   - mysql

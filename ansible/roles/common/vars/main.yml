@@ -1,0 +1,17 @@
+packages:
+  - vim-nox
+  - openntpd
+  - sudo
+#password: "{{ lookup('file', 'hashed_password') }}" # pass 1234 ou 123456 ??
+#shell: /bin/bash
+#member_of: sudo
+#local_public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+services:
+  - sshd
+  - openntpd
+docker_dependencies:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common

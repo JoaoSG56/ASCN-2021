@@ -1,0 +1,41 @@
+# Tasks common
+  - name: update system packages
+    apt:
+      update_cache: yes
+      upgrade: no
+
+  - name: install packages
+    apt:
+      name: "{{ item }}"
+      state: latest
+    loop: "{{ packages }}"
+
+  # - name: create a user with password
+  #   user:
+  #     name: "{{ app_db_name }}"
+  #     password: "{{ password }}"
+  #     shell: "{{ shell }}"
+
+  # - name: add user to sudo group
+  #   user:
+  #     name: "{{ app_db_name }}"
+  #     groups: "{{ member_of }}"
+  #     append: yes
+
+  # - name: prepare tester for public key authentication
+  #   authorized_key:
+  #     user: "{{ app_db_name }}"
+  #     key: "{{ local_public_key }}"
+
+- name: make sure OpenNTPD and OpenSSH services are enabled and running
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop: "{{ services }}"
+
+- name: install docker
+  import: install_docker.yml
+
+- name: instal kubernetes
+  import: install_kubernetes.yml
