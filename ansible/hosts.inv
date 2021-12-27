@@ -1,5 +1,5 @@
 [app]
-10.186.0.12
+10.186.0.13
 
 #[db]
 
@@ -7,5 +7,5 @@
 [app:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
-[db:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#[db:vars]
+#ansible_ssh_common_args='-o StrictHostKeyChecking=no'

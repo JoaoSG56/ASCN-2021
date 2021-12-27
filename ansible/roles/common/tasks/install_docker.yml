@@ -1,30 +1,31 @@
 - name: Install Docker Dependency
-      apt:
-        name: "{{ docker_dependencies }}"
-        state: present
-        update_cache: yes
-        force_apt_get: yes
+  apt:
+    name: "{{ docker_dependencies }}"
+    state: present
+    update_cache: yes
+    force_apt_get: yes
 
 - name: Add GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
 - name: Add docker repository to apt
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
 
 - name: Update apt and install docker-ce
-    apt: 
-        update_cache: yes 
-        name: docker-ce 
-        state: latest
+  apt:
+      force_apt_get: yes
+      update_cache: yes 
+      name: docker-ce 
+      state: latest
 
 - name: make sure that docker service was started and enabled
-      service:
-        name: docker
-        state: started
-        enabled: yes
+  service:
+    name: docker
+    state: started
+    enabled: yes
 
 

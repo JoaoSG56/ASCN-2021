@@ -1,9 +1,3 @@
-- name: install packages
-  apt:
-    name: "{{ item }}"
-    state: latest
-  loop: "{{ app_packages }}"
-
 
 # criar user
 - name: create the kube user account
