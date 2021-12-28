@@ -1,0 +1,17 @@
+- name: Postgres Config File
+  #become_user: kube
+  shell: kubectl apply -f ~/ansible/postgres_files/postgres-config.yaml 
+  args:
+    chdir: $HOME
+
+- name: Postgres PV File
+  #become_user: kube
+  shell: kubectl apply -f ~/ansible/postgres_files/postgres-pv.yaml 
+  args:
+    chdir: $HOME
+  
+- name: Postgres Deployment
+  #become_user: kube
+  shell: kubectl apply -f ~/ansible/postgres_files/postgres-deployment.yaml 
+  args:
+    chdir: $HOME

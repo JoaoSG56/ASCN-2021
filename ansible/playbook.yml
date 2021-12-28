@@ -3,12 +3,22 @@
   roles:
     - role: common
 
-- hosts: app
+- hosts: master
+  become: yes
+  roles:
+  - role: master
+
+- hosts: workers
+  become: yes
+  roles:
+  - role: worker
+
+- hosts: master
+  become: yes
+  roles:
+  - role: db
+
+- hosts: master
   become: yes
   roles:
   - role: app
-
-# - hosts: db
-#   become: yes
-#   roles:
-#   - role: db
