@@ -1,17 +1,17 @@
-- name: Postgres Config File
+- name: WikiJs Config File
   #become_user: kube
-  shell: kubectl apply -f ~/ansible/wikijsFiles/wikijs-config.yaml 
+  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-config.yaml 
   args:
     chdir: $HOME
 
-- name: Postgres PV File
+- name: WikiJs PV File
   #become_user: kube
-  shell: kubectl apply -f ~/ansible/wikijsFiles/wikijs-secret.yaml 
+  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-secret.yaml 
   args:
     chdir: $HOME
   
-- name: Postgres Deployment
+- name: WikiJs Deployment
   #become_user: kube
-  shell: kubectl apply -f ~/ansible/wikijsFiles/wikijs-deployment.yaml 
+  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-deployment.yaml 
   args:
     chdir: $HOME

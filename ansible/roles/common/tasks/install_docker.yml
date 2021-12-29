@@ -24,14 +24,23 @@
 
 - name: install docker
   apt:
-    name: "{{item}}"
+    name: docker.io
     state: latest
     force_apt_get: yes
     update_cache: yes
-  loop:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
+
+- name: Echo alters to docker daemon
+  become_user: root
+  shell : |
+          echo '{"exec-opts": ["native.cgroupdriver=systemd"]}' >> /etc/docker/daemon.json
+
+- name: Enable Docker
+  shell : |          
+          systemctl enable docker
+
+- name: Restart Docker
+  shell : |          
+          systemctl restart docker
 
 - name: make sure that docker service was started and enabled
   service:
