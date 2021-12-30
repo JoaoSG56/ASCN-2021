@@ -1,6 +1,17 @@
 - name: Reseting kubelet
   shell: kubeadm reset --force
 
+- name: cleanup before adm init
+  shell: |
+          systemctl stop kubelet
+          systemctl stop docker
+          rm -rf /var/lib/cni/
+          rm -rf /var/lib/kubelet/*
+          rm -rf /etc/cni/
+          ifconfig cni0 down
+          ifconfig flannel.1 down
+          ifconfig docker0 down
+
 - name: Copy join command from Ansible host to the worker nodes.
   copy:
     src: /tmp/kubernetes_join_command

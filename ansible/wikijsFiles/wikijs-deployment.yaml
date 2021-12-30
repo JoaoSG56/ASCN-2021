@@ -38,27 +38,27 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DB_HOST
-              name: postgres-config
+              name: wikijs-config
         - name: DB_PORT
           valueFrom:
             configMapKeyRef:
               key: DB_PORT
-              name: postgres-config
+              name: wikijs-config
         - name: DB_USER
           valueFrom:
             configMapKeyRef:
               key: DB_USER
-              name: postgres-config
+              name: wikijs-config
         - name: DB_TYPE
           valueFrom:
             configMapKeyRef:
               key: DB_TYPE
-              name: postgres-config  
+              name: wikijs-config  
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
               key: DB_NAME
-              name: postgres-config  
+              name: wikijs-config  
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
