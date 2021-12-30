@@ -9,8 +9,10 @@
     creates: cluster_initialized.txt
 
 - name: create .kube directory
+  become: yes
+  become_user : kube
   file:
-    path: "{{ kube_dir }}/.kube"
+    path: $HOME/.kube
     state: directory
     mode: 0755
 
@@ -21,20 +23,26 @@
     remote_src: yes
     owner: kube
 
-# - name: permission
-#   shell: chown kube:kube "{{ kube_dir }}/.kube/config"
+- name: permission
+  shell: chown $(id -u):$(id -g) "{{ kube_dir }}/.kube/config"
 
 
 - name: install Pod network
+  become: yes
   become_user: kube
-  shell: sudo kubectl apply -f "{{ kube_dir }}/ansible/kube-flannel.yaml"
+  shell: kubectl apply -f "{{ kube_dir }}/ansible/kube-flannel.yaml"
   args:
-    chdir: "{{ kube_dir }}"
+    chdir: $HOME #"{{ kube_dir }}"
 
 - name: Create WikiJs Namespace
+  become: yes
+  become_user: kube
   shell: kubectl create namespace wikijs
+  
 
 - name: Get the token for joining the worker nodes
+  become: yes
+  become_user: kube
   shell: kubeadm token create  --print-join-command
   register: kubernetes_join_command
 

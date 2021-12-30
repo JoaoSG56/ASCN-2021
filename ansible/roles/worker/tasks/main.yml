@@ -1,7 +1,7 @@
 - name: Reseting kubelet
   shell: kubeadm reset --force
 
-- name: Copy join command from Ansiblehost to the worker nodes.
+- name: Copy join command from Ansible host to the worker nodes.
   copy:
     src: /tmp/kubernetes_join_command
     dest: /tmp/kubernetes_join_command

@@ -1,10 +1,10 @@
-- name: WikiJs Config File
-  become_user: kube
-  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-config.yaml 
-  args:
-    chdir: $HOME
+# - name: WikiJs Config File
+#   become_user: kube
+#   shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-config.yaml 
+#   args:
+#     chdir: $HOME
 
-- name: WikiJs PV File
+- name: WikiJs Secret File
   become_user: kube
   shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-secret.yaml 
   args:

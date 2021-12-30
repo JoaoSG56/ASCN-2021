@@ -2,6 +2,7 @@ packages:
   - vim-nox
   - openntpd
   - sudo
+  - acl
 #password: "{{ lookup('file', 'hashed_password') }}" # pass 1234 ou 123456 ??
 #shell: /bin/bash
 #member_of: sudo
