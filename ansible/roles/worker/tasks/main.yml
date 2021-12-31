@@ -11,6 +11,10 @@
           ifconfig cni0 down
           ifconfig flannel.1 down
           ifconfig docker0 down
+          ip link set cni0 down
+          brctl delbr cni0
+          systemctl restart kubelet
+          systemctl restart docker
 
 - name: Copy join command from Ansible host to the worker nodes.
   copy:

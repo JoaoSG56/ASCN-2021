@@ -12,6 +12,10 @@
           ifconfig cni0 down
           ifconfig flannel.1 down
           ifconfig docker0 down
+          ip link set cni0 down
+          brctl delbr cni0
+          systemctl restart kubelet
+          systemctl restart docker
 
 - name: kubeadm init
   shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={{ app_master_ip }}
@@ -46,10 +50,10 @@
   args:
     chdir: $HOME #"{{ kube_dir }}"
 
-- name: Create WikiJs Namespace
+# - name: Create WikiJs Namespace
   #become: yes
   #become_user: kube
-  shell: kubectl create namespace wikijs
+  # shell: kubectl create namespace wikijs
   
 
 - name: Get the token for joining the worker nodes
