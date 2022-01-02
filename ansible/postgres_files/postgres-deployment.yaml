@@ -7,10 +7,10 @@ metadata:
 spec:
   #type: NodePort
   ports:
-   - port: 3306
+   - port: 5432
   selector:
    app: postgres
-  clusterIP: None
+  #clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
           image: postgres:latest
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: 3306
+            - containerPort: 5432
           envFrom:
             - configMapRef:
                 name: postgres-config

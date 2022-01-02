@@ -4,8 +4,8 @@ metadata:
   name: wikijs-config
   #namespace: wikijs
 data:
-  DB_HOST: "10.186.0.17"
-  DB_PORT: "3306"
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
   DB_USER: "wikijs"
   DB_TYPE: "postgres"
   DB_NAME: "wikijs"
