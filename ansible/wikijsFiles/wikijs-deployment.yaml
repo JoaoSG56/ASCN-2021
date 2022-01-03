@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: wikijs
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: wikijs
   ports:
       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - port: 8000 #exported to cluster
-      targetPort: 8000 #used to send requests to the pod
+    - port: 3000 #exported to cluster
+      targetPort: 3000 #used to send requests to the pod
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30007 #exported to the "outside"
@@ -53,29 +53,33 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: DB_TYPE
-              name: wikijs-config  
+              name: wikijs-config
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
               key: DB_NAME
-              name: wikijs-config  
+              name: wikijs-config
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
-              name: postgres 
-              key: password 
-      
+              name: postgres
+              key: password
+
         # env:
         # - name: DB_HOST
-        #   value: mysql
-        # - name: DB_DATABASE
+        #   value: postgres
+        # - name: DB_USER
         #   value: wikijs
-        # - name: DB_USERNAME
-        #   value: wikijsuser
-        # - name: DB_PASSWORD
-        #   value: "54321"
+        # - name: DB_NAME
+        #   value: wiki
+        # - name: DB_PORT
+        #   value: "5432"
+        # - name: DB_TYPE
+        #   value: postgres
+        # - name: DB_PASS
+        #   value: wikijs
         ports:
-        - containerPort: 8000
+        - containerPort: 3000
           name: wikijs
       # topologySpreadConstraints:
       # - maxSkew: 1

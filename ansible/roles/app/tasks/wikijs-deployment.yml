@@ -1,17 +1,15 @@
 - name: WikiJs Config File
   #become_user: kube
-  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-config.yaml 
-  args:
-    chdir: $HOME
+  become: no
+  shell: kubectl apply -f ansible/wikijsFiles/wikijs-config.yaml 
 
 - name: WikiJs Secret File
   #become_user: kube
-  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-secret.yaml 
-  args:
-    chdir: $HOME
+  become: no
+  shell: kubectl apply -f ansible/wikijsFiles/wikijs-secret.yaml 
+
   
 - name: WikiJs Deployment
   #become_user: kube
-  shell: kubectl apply -f $HOME/ansible/wikijsFiles/wikijs-deployment.yaml 
-  args:
-    chdir: $HOME
+  become: no
+  shell: kubectl apply -f ansible/wikijsFiles/wikijs-deployment.yaml 

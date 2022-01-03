@@ -1,18 +1,21 @@
-[app]
-10.186.0.16
-
 [db]
-10.186.0.17
+10.186.0.20
+
+[app]
+10.186.0.19
 
 [master]
-10.186.0.15
+10.186.0.18
 
 [workers:children]
-app
 db
+app
 
 [app:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
-#[db:vars]
-#ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[db:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[master:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

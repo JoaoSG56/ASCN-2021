@@ -19,46 +19,51 @@
 
 - name: kubeadm init
   shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={{ app_master_ip }}
-  args:
-    chdir: $HOME
-    creates: cluster_initialized.txt
+  # args:
+  #   chdir: $HOME
+  #   creates: cluster_initialized.txt
 
 - name: create .kube directory
   #become: yes
   #become_user : kube
   file:
-    path: $HOME/.kube
+    path: .kube
     state: directory
-    mode: 0755
+    #mode: 0755
 
 - name: copies admin.conf to user's kube config
   copy:
     src: /etc/kubernetes/admin.conf
-    dest: $HOME/.kube/config
+    dest: .kube/config
     remote_src: yes
     #owner: kube
 
 - name: permission
-  shell: chown $(id -u):$(id -g) $HOME/.kube/config
-  args:
-    chdir: $HOME
+  shell: chown $(id -u):$(id -g) .kube/config
+
+
+- name: Delete --port=0 from kube-scheduler
+  lineinfile: 
+    dest: /etc/kubernetes/manifests/kube-scheduler.yaml        
+    state: absent
+    regexp: '^\s*- --port=0$'
+
+- name: Restart Kubelet
+  service:
+    name: kubelet
+    state: restarted
 
 - name: install Pod network
   #become: yes
   #become_user: kube
-  shell: kubectl apply -f $HOME/ansible/kube-flannel.yaml
-  args:
-    chdir: $HOME #"{{ kube_dir }}"
+  become: no
+  shell: kubectl apply -f ansible/kube-flannel.yaml
 
-# - name: Create WikiJs Namespace
-  #become: yes
-  #become_user: kube
-  # shell: kubectl create namespace wikijs
-  
 
 - name: Get the token for joining the worker nodes
   #become: yes
   #become_user: kube
+  become: no
   shell: kubeadm token create  --print-join-command
   register: kubernetes_join_command
 
