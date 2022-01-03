@@ -28,31 +28,31 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres
-          image: postgres:11
+        - image: postgres:11
+          name: postgres
           imagePullPolicy: "IfNotPresent"
-          # env:
-          # - name: POSTGRES_DB
-          #   value: wiki
-          # - name: POSTGRES_USER
-          #   value: wiki
-          # - name: POSTGRES_PASSWORD
-          #   value: "wikijs"
+          env:
+          - name: POSTGRES_DB
+            value: wiki
+          - name: POSTGRES_USER
+            value: wiki
+          - name: POSTGRES_PASSWORD
+            value: "wiki"
           ports:
             - containerPort: 5432
               name: postgres
-          envFrom:
-            - configMapRef:
-                name: postgres-config
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgres-pv-claim
+            - name: postgres-pv-claim
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-pv-claim
           persistentVolumeClaim:
             claimName: postgres-pv-claim
 
 
+          # envFrom:
+          #   - configMapRef:
+          #       name: postgres-config
 # apiVersion: v1
 # kind: Service
 # metadata:

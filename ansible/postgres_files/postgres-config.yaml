@@ -5,6 +5,6 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: wikijs
+  POSTGRES_DB: wiki
   POSTGRES_USER: wikijs
   POSTGRES_PASSWORD: "wikijs"

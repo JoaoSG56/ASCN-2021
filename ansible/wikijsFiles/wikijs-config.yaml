@@ -4,11 +4,12 @@ metadata:
   name: wikijs-config
   #namespace: wikijs
 data:
-  DB_HOST: "postgres"
+  DB_HOST: postgres
   DB_PORT: "5432"
-  DB_USER: "wikijs"
-  DB_TYPE: "postgres"
-  DB_NAME: "wikijs"
+  DB_USER: wikijs
+  DB_TYPE: postgres
+  DB_NAME: wiki
+  DB_PASS: "wikijs"
 
 # kubectl apply -f wikijs-config.yaml
 # configmap/postgres-config created

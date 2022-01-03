@@ -1,7 +1,7 @@
-- name: Postgres Config File
-  #become_user: kube
-  become: no
-  shell: kubectl apply -f ansible/postgres_files/postgres-config.yaml 
+# - name: Postgres Config File
+#   #become_user: kube
+#   become: no
+#   shell: kubectl apply -f ansible/postgres_files/postgres-config.yaml 
 
 - name: Postgres PV File
   #become_user: kube
