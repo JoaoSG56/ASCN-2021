@@ -1,12 +1,12 @@
-- name: WikiJs Config File
-  #become_user: kube
-  become: no
-  shell: kubectl apply -f ansible/wikijsFiles/wikijs-config.yaml 
+# - name: WikiJs Config File
+#   #become_user: kube
+#   become: no
+#   shell: kubectl apply -f ansible/wikijsFiles/wikijs-config.yaml 
 
-- name: WikiJs Secret File
-  #become_user: kube
-  become: no
-  shell: kubectl apply -f ansible/wikijsFiles/wikijs-secret.yaml 
+# - name: WikiJs Secret File
+#   #become_user: kube
+#   become: no
+#   shell: kubectl apply -f ansible/wikijsFiles/wikijs-secret.yaml 
 
   
 - name: WikiJs Deployment

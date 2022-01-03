@@ -8,7 +8,9 @@ spec:
     app: wikijs
   ports:
       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - port: 3000 #exported to cluster
+    - name: http
+      protocol: TCP
+      port: 80 #exported to cluster
       targetPort: 3000 #used to send requests to the pod
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
@@ -33,54 +35,54 @@ spec:
       containers:
       - name: wikijs
         image: requarks/wiki:2
-        env:
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: DB_HOST
-              name: wikijs-config
-        - name: DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: DB_PORT
-              name: wikijs-config
-        - name: DB_USER
-          valueFrom:
-            configMapKeyRef:
-              key: DB_USER
-              name: wikijs-config
-        - name: DB_TYPE
-          valueFrom:
-            configMapKeyRef:
-              key: DB_TYPE
-              name: wikijs-config
-        - name: DB_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: DB_NAME
-              name: wikijs-config
-        - name: DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: postgres
-              key: password
-
         # env:
         # - name: DB_HOST
-        #   value: postgres
-        # - name: DB_USER
-        #   value: wikijs
-        # - name: DB_NAME
-        #   value: wiki
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DB_HOST
+        #       name: wikijs-config
         # - name: DB_PORT
-        #   value: "5432"
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DB_PORT
+        #       name: wikijs-config
+        # - name: DB_USER
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DB_USER
+        #       name: wikijs-config
         # - name: DB_TYPE
-        #   value: postgres
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DB_TYPE
+        #       name: wikijs-config
+        # - name: DB_NAME
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       key: DB_NAME
+        #       name: wikijs-config
         # - name: DB_PASS
-        #   value: wikijs
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: postgres
+        #       key: password
+        env:
+        - name: DB_HOST
+          value: postgres
+        - name: DB_USER
+          value: wikijs
+        - name: DB_NAME
+          value: wiki
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_TYPE
+          value: postgres
+        - name: DB_PASS
+          value: "wikijs"
         ports:
         - containerPort: 3000
           name: wikijs
+          protocol: TCP
       # topologySpreadConstraints:
       # - maxSkew: 1
       #   topologyKey: kubernetes.io/hostname

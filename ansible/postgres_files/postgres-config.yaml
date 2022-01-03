@@ -7,4 +7,4 @@ metadata:
 data:
   POSTGRES_DB: wikijs
   POSTGRES_USER: wikijs
-  POSTGRES_PASSWORD: wikijs
+  POSTGRES_PASSWORD: "wikijs"

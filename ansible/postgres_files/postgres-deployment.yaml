@@ -31,8 +31,16 @@ spec:
         - name: postgres
           image: postgres:11
           imagePullPolicy: "IfNotPresent"
+          # env:
+          # - name: POSTGRES_DB
+          #   value: wiki
+          # - name: POSTGRES_USER
+          #   value: wiki
+          # - name: POSTGRES_PASSWORD
+          #   value: "wikijs"
           ports:
             - containerPort: 5432
+              name: postgres
           envFrom:
             - configMapRef:
                 name: postgres-config
