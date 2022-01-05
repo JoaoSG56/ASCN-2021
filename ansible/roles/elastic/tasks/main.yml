@@ -1,0 +1,5 @@
+- name: Install ElasticSearch
+  import_tasks: elastic_search.yml
+
+- name: Install Kibana
+  import_tasks: kibana.yml

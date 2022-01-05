@@ -9,5 +9,3 @@ app_db_ip: "{{ groups['db'][0] }}"
 app_user_ip: "{{ groups['app'][0] }}"
 
 app_master_ip: "{{ groups['master'][0] }}"
-
-kube_dir: /home/kube

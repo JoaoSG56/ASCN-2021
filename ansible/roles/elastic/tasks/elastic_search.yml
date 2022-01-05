@@ -1,0 +1,52 @@
+- name: install java
+  become: yes
+  apt:
+    name: openjdk-13-jre-headless
+    state: latest
+
+- name: Edit JAVA_HOME to ElasticSearch
+  become: yes
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: '^JAVA_HOME'
+    line: 'JAVA_HOME=/usr'
+  
+- name: Download elasticsearch
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.16.2-linux-x86_64.tar.gz
+    dest: ~/
+
+- name: Unzip elasticsearch Folder
+  ansible.builtin.unarchive:
+    src: ~/elasticsearch-7.16.2-linux-x86_64.tar.gz
+    dest: ~/
+
+- name: Change network.host @ config/elastisearch.yml
+  ansible.builtin.replace:
+    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    regexp: "#network.host:.*\n"
+    replace : 'network.host: {{ app_master_ip }}\n'
+
+- name: Change discovery.seed_hosts @ config/elastisearch.yml
+  ansible.builtin.replace:
+    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    regexp: "#discovery.seed_hosts:.*\n"
+    replace: "discovery.seed_hosts: []\n"
+
+- name: Change cluster.initial_master_nodes @ config/elastisearch.yml
+  ansible.builtin.replace:
+    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    regexp: "#cluster.initial_master_nodes:.*\n"
+    replace: 'cluster.initial_master_nodes: ["{{ app_master_ip }}"]\n'
+    
+- name: set vm.max_map_count to 262144 in sysctl
+  become: yes
+  sysctl: name={{ item.key }} value={{ item.value }}
+  with_items:
+    - { key: "vm.max_map_count", value: "262144" }
+
+- name: Start Elasticsearch
+  shell: cd /tmp/www; nohup  bash elasticsearch </dev/null >/dev/null 2>&1 &   
+  args:
+     chdir: "elasticsearch-7.16.2/bin/"

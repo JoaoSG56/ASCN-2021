@@ -3,22 +3,32 @@
   roles:
     - role: common
 
-- hosts: master
-  become: yes
-  roles:
-  - role: master
+# - hosts: master
+#   become: yes
+#   roles:
+#   - role: master
+
+# - hosts: workers
+#   become: yes
+#   roles:
+#   - role: worker
+
+# - hosts: master
+#   become: yes
+#   roles:
+#   - role: db
+
+# - hosts: master
+#   become: yes
+#   roles:
+#   - role: app
+
+# - hosts: master
+#   become: no
+#   roles:
+#    - role: elastic
 
 - hosts: workers
-  become: yes
+  become: no
   roles:
-  - role: worker
-
-- hosts: master
-  become: yes
-  roles:
-  - role: db
-
-- hosts: master
-  become: yes
-  roles:
-  - role: app
+    - role: beats
