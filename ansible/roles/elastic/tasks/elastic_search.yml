@@ -47,6 +47,7 @@
     - { key: "vm.max_map_count", value: "262144" }
 
 - name: Start Elasticsearch
-  shell: cd /tmp/www; nohup  bash elasticsearch </dev/null >/dev/null 2>&1 &   
+  shell: nohup bash elasticsearch </dev/null >/dev/null 2>&1 &   
   args:
      chdir: "elasticsearch-7.16.2/bin/"
+

@@ -23,6 +23,6 @@
 
 - name: Start Kibana
   become: yes
-  shell: cd /tmp/www; nohup  bash kibana --allow-root </dev/null >/dev/null 2>&1 &   
+  shell: nohup bash kibana --allow-root </dev/null >/dev/null 2>&1 &   
   args:
      chdir: "kibana-7.16.2-linux-x86_64/bin/"
