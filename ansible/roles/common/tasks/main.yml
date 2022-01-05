@@ -10,23 +10,6 @@
     state: latest
   loop: "{{ packages }}"
 
-  # - name: create a user with password
-  #   user:
-  #     name: "{{ app_db_name }}"
-  #     password: "{{ password }}"
-  #     shell: "{{ shell }}"
-
-  # - name: add user to sudo group
-  #   user:
-  #     name: "{{ app_db_name }}"
-  #     groups: "{{ member_of }}"
-  #     append: yes
-
-  # - name: prepare tester for public key authentication
-  #   authorized_key:
-  #     user: "{{ app_db_name }}"
-  #     key: "{{ local_public_key }}"
-
 - name: make sure OpenNTPD and OpenSSH services are enabled and running
   service:
     name: "{{ item }}"
@@ -39,17 +22,3 @@
 
 - name: instal kubernetes
   import_tasks: install_kubernetes.yml
-
-# - name: create the kube user account
-#   user: name=kube append=yes state=present createhome=yes shell=/bin/bash
-
-# - name: allow 'kube' to use sudo without needing a password
-#   lineinfile:
-#     dest: /etc/sudoers
-#     line: 'kube ALL=(ALL) NOPASSWD: ALL'
-#     validate: 'visudo -cf %s'
-
-# - name: set up authorized keys for the kube user
-#   authorized_key: user=kube key="{{item}}"
-#   with_file:
-#     - ~/.ssh/id_rsa.pub

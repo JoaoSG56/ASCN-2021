@@ -4,10 +4,6 @@ packages:
   - sudo
   - acl
   - net-tools
-#password: "{{ lookup('file', 'hashed_password') }}" # pass 1234 ou 123456 ??
-#shell: /bin/bash
-#member_of: sudo
-#local_public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 services:
   - sshd
   - openntpd

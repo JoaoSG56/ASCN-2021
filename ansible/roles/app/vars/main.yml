@@ -1,1 +1,0 @@
-local_public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

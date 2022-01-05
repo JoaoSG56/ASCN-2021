@@ -15,11 +15,11 @@
 - name: Download elasticsearch
   get_url:
     url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.16.2-linux-x86_64.tar.gz
-    dest: ~/
+    dest: ~/elastic
 
 - name: Unzip elasticsearch Folder
   ansible.builtin.unarchive:
-    src: ~/elasticsearch-7.16.2-linux-x86_64.tar.gz
+    src: ~/elastic
     dest: ~/
 
 - name: Change network.host @ config/elastisearch.yml
@@ -47,7 +47,7 @@
     - { key: "vm.max_map_count", value: "262144" }
 
 - name: Start Elasticsearch
-  shell: nohup bash elasticsearch </dev/null >/dev/null 2>&1 &   
+  shell: cd /tmp/www; nohup  bash elasticsearch </dev/null >/dev/null 2>&1 &   
   args:
      chdir: "elasticsearch-7.16.2/bin/"
 

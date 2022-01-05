@@ -4,11 +4,9 @@
 #   shell: kubectl apply -f ansible/postgres_files/postgres-config.yaml 
 
 - name: Postgres PV File
-  #become_user: kube
   become: no
   shell: kubectl apply -f ansible/postgres_files/postgres-pv.yaml 
 
 - name: Postgres Deployment
-  #become_user: kube
   become: no
   shell: kubectl apply -f ansible/postgres_files/postgres-deployment.yaml 
