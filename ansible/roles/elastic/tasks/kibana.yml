@@ -1,4 +1,3 @@
-
 - name: Download Kibana
   get_url:
     url: https://artifacts.elastic.co/downloads/kibana/kibana-7.16.2-linux-x86_64.tar.gz

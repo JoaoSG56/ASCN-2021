@@ -1,7 +1,7 @@
 - name: Reseting kubelet
   shell: kubeadm reset --force
 
-- name: cleanup before adm init
+- name: cleanup 
   shell: |
           systemctl stop kubelet
           systemctl stop docker

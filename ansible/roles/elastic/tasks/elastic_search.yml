@@ -1,7 +1,7 @@
 - name: install java
   become: yes
   apt:
-    name: openjdk-13-jre-headless
+    name: openjdk-11-jdk
     state: latest
 
 - name: Edit JAVA_HOME to ElasticSearch

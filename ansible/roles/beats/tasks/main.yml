@@ -1,38 +1,32 @@
 - name: Download Metricbeats
-  become: no
   get_url:
     url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.16.2-linux-x86_64.tar.gz
     dest: ~/beats
 
-- name: Unzip Metricbeats Folder~
-  become: no
+- name: Unzip Metricbeats Folder
   ansible.builtin.unarchive:
     src: ~/beats
     dest: ~/
     remote_src: yes
 
 - name: Add host to setup.kibana
-  become: no
   ansible.builtin.replace:
     path: ~/metricbeat-7.16.2-linux-x86_64/metricbeat.yml
     regexp: "#host: \"localhost:5601\""
     replace: 'host: "{{ app_master_ip }}:5601"'
 
 - name: Add host to output.elasticsearch
-  become: no
   ansible.builtin.replace:
     path: ~/metricbeat-7.16.2-linux-x86_64/metricbeat.yml
     regexp: "localhost:9200"
     replace: '{{ app_master_ip }}:9200'
 
 - name: Setup metricbeat
-  become: no
   shell: sleep 40; ./metricbeat setup
   args:
     chdir: "metricbeat-7.16.2-linux-x86_64/"
 
 - name: Start metricbeat daemon
-  become: no
-  shell: cd /tmp/www; nohup  bash metricbeat -e </dev/null >/dev/null 2>&1 &
+  shell: cd /tmpw/www; nohup  bash metricbeat -e </dev/null >/dev/null 2>&1 &
   args:
     chdir: "metricbeat-7.16.2-linux-x86_64/"
