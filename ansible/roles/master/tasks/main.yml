@@ -24,7 +24,6 @@
     path: .kube
     state: directory
 
-
 - name: copies admin.conf to user's kube config
   copy:
     src: /etc/kubernetes/admin.conf
@@ -34,12 +33,11 @@
 - name: permission
   shell: chown $(id -u):$(id -g) .kube/config
 
-
 - name: Delete --port=0 from kube-scheduler
   lineinfile: 
     dest: /etc/kubernetes/manifests/kube-scheduler.yaml        
     state: absent
-    regexp: '^\s*- --port=0$'
+    regexp: '- --port=0'
 
 - name: Restart Kubelet
   service:
@@ -50,11 +48,9 @@
   become: no
   shell: kubectl apply -f ansible/kube-flannel.yaml
 
-
 - name: Get the token for joining the worker nodes
-  become: no
   shell: kubeadm token create  --print-join-command
   register: kubernetes_join_command
 
 - name: Copy join command to local file.
-  local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+  local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="./kubernetes_join_command"

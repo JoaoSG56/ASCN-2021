@@ -15,28 +15,29 @@
 - name: Download elasticsearch
   get_url:
     url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.16.2-linux-x86_64.tar.gz
-    dest: ~/elastic
+    dest: ./elastic
 
 - name: Unzip elasticsearch Folder
   ansible.builtin.unarchive:
-    src: ~/elastic
-    dest: ~/
+    src: elastic
+    dest: ./
+    remote_src: yes
 
 - name: Change network.host @ config/elastisearch.yml
   ansible.builtin.replace:
-    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    path: elasticsearch-7.16.2/config/elasticsearch.yml
     regexp: "#network.host:.*\n"
     replace : 'network.host: {{ app_master_ip }}\n'
 
 - name: Change discovery.seed_hosts @ config/elastisearch.yml
   ansible.builtin.replace:
-    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    path: elasticsearch-7.16.2/config/elasticsearch.yml
     regexp: "#discovery.seed_hosts:.*\n"
     replace: "discovery.seed_hosts: []\n"
 
 - name: Change cluster.initial_master_nodes @ config/elastisearch.yml
   ansible.builtin.replace:
-    path: ~/elasticsearch-7.16.2/config/elasticsearch.yml
+    path: elasticsearch-7.16.2/config/elasticsearch.yml
     regexp: "#cluster.initial_master_nodes:.*\n"
     replace: 'cluster.initial_master_nodes: ["{{ app_master_ip }}"]\n'
     

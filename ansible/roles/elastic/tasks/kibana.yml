@@ -1,22 +1,23 @@
 - name: Download Kibana
   get_url:
     url: https://artifacts.elastic.co/downloads/kibana/kibana-7.16.2-linux-x86_64.tar.gz
-    dest: ~/
+    dest: ./
 
 - name: Unzip Kibana Folder
   ansible.builtin.unarchive:
-    src: ~/kibana-7.16.2-linux-x86_64.tar.gz
-    dest: ~/
+    src: kibana-7.16.2-linux-x86_64.tar.gz
+    dest: ./
+    remote_src: yes
 
 - name: Change server.host @ config/kibana.yml
   ansible.builtin.replace:
-    path: ~/kibana-7.16.2-linux-x86_64/config/kibana.yml
+    path: kibana-7.16.2-linux-x86_64/config/kibana.yml
     regexp: "#server.host:.*\n"
     replace : 'server.host: {{ app_master_ip }}\n'
 
 - name: Change elasticsearch.hosts @ config/elastisearch.yml
   ansible.builtin.replace:
-    path: ~/kibana-7.16.2-linux-x86_64/config/kibana.yml
+    path: kibana-7.16.2-linux-x86_64/config/kibana.yml
     regexp: "#elasticsearch.hosts:.*\n"
     replace: 'elasticsearch.hosts: ["http://{{ app_master_ip }}:9200"]\n'
 
