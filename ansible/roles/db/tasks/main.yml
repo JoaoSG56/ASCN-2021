@@ -1,5 +1,3 @@
 # Tasks DB
-
-# Create Container for PostgreSQL DB
 - name: Deploy Postgres Pod
   import_tasks: postgres-deployment.yml

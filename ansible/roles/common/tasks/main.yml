@@ -1,4 +1,3 @@
-# Tasks common
 - name: update system packages
   apt:
     update_cache: yes

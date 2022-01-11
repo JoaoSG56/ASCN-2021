@@ -28,7 +28,7 @@
   roles:
    - role: elastic
 
-# - hosts: workers
-#   become: no
-#   roles:
-#    - role: beats
+- hosts: workers
+  become: no
+  roles:
+   - role: beats

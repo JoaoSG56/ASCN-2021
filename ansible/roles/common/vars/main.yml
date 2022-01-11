@@ -1,8 +1,6 @@
 packages:
-  - vim-nox
   - openntpd
   - sudo
-  #- acl
   - net-tools
 services:
   - sshd
